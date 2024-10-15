@@ -1,45 +1,36 @@
 // BaseNode.js
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, { useState } from 'react';
+import { Handle, Position } from 'reactflow';
 
-const BaseNode = ({ id, type, data, onConnect, onDisconnect }) => {
+const BaseNode = ({ id, data, type, handles, content }) => {
+  const [state, setState] = useState(data);
+
+  const handleChange = (key, value) => {
+    setState((prevState) => ({
+      ...prevState,
+      [key]: value,
+    }));
+  };
+
   return (
-    <div className={`node ${type}`}>
-      <div className="node-header">{type} Node</div>
-      <div className="node-content">
-        {data.content}
+    <div style={{ width: 200, height: 80, border: '1px solid black' }}>
+      <div>
+        <span>{type}</span>
       </div>
-      <div className="node-handles">
-        {data.handles.map(handle => (
-          <div key={handle.id} className={`handle ${handle.type}`}>
-            {handle.label}
-          </div>
-        ))}
+      <div>
+        {content(state, handleChange)}
       </div>
+      {handles.map((handle) => (
+        <Handle
+          key={handle.id}
+          type={handle.type}
+          position={handle.position}
+          id={handle.id}
+          style={handle.style}
+        />
+      ))}
     </div>
   );
-};
-
-BaseNode.propTypes = {
-  id: PropTypes.string.isRequired,
-  type: PropTypes.string.isRequired,
-  data: PropTypes.shape({
-    content: PropTypes.node.isRequired,
-    handles: PropTypes.arrayOf(
-      PropTypes.shape({
-        id: PropTypes.string.isRequired,
-        type: PropTypes.string.isRequired,
-        label: PropTypes.string.isRequired,
-      })
-    ).isRequired,
-  }).isRequired,
-  onConnect: PropTypes.func,
-  onDisconnect: PropTypes.func,
-};
-
-BaseNode.defaultProps = {
-  onConnect: () => { },
-  onDisconnect: () => { },
 };
 
 export default BaseNode;

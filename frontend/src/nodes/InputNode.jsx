@@ -1,47 +1,35 @@
-// inputNode.js
-
-import { useState } from 'react';
-import { Handle, Position } from 'reactflow';
+// InputNode.js
+import React from 'react';
+import BaseNode from './BaseNode';
+import { Position } from 'reactflow';
 
 export const InputNode = ({ id, data }) => {
-  const [currName, setCurrName] = useState(data?.inputName || id.replace('customInput-', 'input_'));
-  const [inputType, setInputType] = useState(data.inputType || 'Text');
+  const handles = [
+    { type: 'source', position: Position.Right, id: `${id}-value` },
+  ];
 
-  const handleNameChange = (e) => {
-    setCurrName(e.target.value);
-  };
-
-  const handleTypeChange = (e) => {
-    setInputType(e.target.value);
-  };
-
-  return (
-    <div style={{width: 200, height: 80, border: '1px solid black'}}>
-      <div>
-        <span>Input</span>
-      </div>
-      <div>
-        <label>
-          Name:
-          <input 
-            type="text" 
-            value={currName} 
-            onChange={handleNameChange} 
-          />
-        </label>
-        <label>
-          Type:
-          <select value={inputType} onChange={handleTypeChange}>
-            <option value="Text">Text</option>
-            <option value="File">File</option>
-          </select>
-        </label>
-      </div>
-      <Handle
-        type="source"
-        position={Position.Right}
-        id={`${id}-value`}
-      />
-    </div>
+  const content = (state, handleChange) => (
+    <>
+      <label>
+        Name:
+        <input
+          type="text"
+          value={state.inputName || id.replace('customInput-', 'input_')}
+          onChange={(e) => handleChange('inputName', e.target.value)}
+        />
+      </label>
+      <label>
+        Type:
+        <select
+          value={state.inputType || 'Text'}
+          onChange={(e) => handleChange('inputType', e.target.value)}
+        >
+          <option value="Text">Text</option>
+          <option value="File">File</option>
+        </select>
+      </label>
+    </>
   );
-}
+
+  return <BaseNode id={id} data={data} type="Input" handles={handles} content={content} />;
+};
