@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 
 export const BaseNode = ({ id, label, data, inputs, outputs, content }) => {
   return (
-    <div style={{ width: 200, height: 80, border: '1px solid black', padding: 10 }}>
+    <div style={{ width: 200, height: 'auto', border: '1px solid black', position: 'relative', padding: 10 }}>
       <div style={{ marginBottom: 10 }}>
         <strong>{label}</strong>
       </div>
@@ -14,7 +14,7 @@ export const BaseNode = ({ id, label, data, inputs, outputs, content }) => {
         {content}
       </div>
 
-      {/* Render input handles */}
+      {/* Render input handles on left sid */}
       {inputs.map((input, index) => (
         <Handle
           key={`input-${index}`}
@@ -22,10 +22,10 @@ export const BaseNode = ({ id, label, data, inputs, outputs, content }) => {
           position={input.position || Position.Left}
           id={`${id}-${input.id}`}
           style={input.style || {}}
-        />
+        ><div className='custom-handle-label'>{input.label}</div></Handle>
       ))}
 
-      {/* Render output handles */}
+      {/* Render output handles on right side */}
       {outputs.map((output, index) => (
         <Handle
           key={`output-${index}`}
@@ -33,7 +33,7 @@ export const BaseNode = ({ id, label, data, inputs, outputs, content }) => {
           position={output.position || Position.Right}
           id={`${id}-${output.id}`}
           style={output.style || {}}
-        />
+        ><div className='custom-handle-label'>{output.label}</div></Handle>
       ))}
     </div>
   );
