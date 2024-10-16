@@ -1,9 +1,16 @@
 // BaseNode.js
 
-import { Handle, Position } from 'reactflow';
+import { Handle, Position, useUpdateNodeInternals } from 'reactflow';
 import PropTypes from 'prop-types';
+import { useEffect } from 'react';
 
 export const BaseNode = ({ id, label, data, inputs, outputs, content }) => {
+  const updateNodeInternals = useUpdateNodeInternals(id)
+
+  useEffect(() => {
+    updateNodeInternals(id)
+  }, [inputs, id, updateNodeInternals]);
+
   return (
     <div style={{ width: 200, height: 'auto', border: '1px solid black', position: 'relative', padding: 10 }}>
       <div style={{ marginBottom: 10 }}>
@@ -22,6 +29,7 @@ export const BaseNode = ({ id, label, data, inputs, outputs, content }) => {
           position={input.position || Position.Left}
           id={`${id}-${input.id}`}
           style={input.style || {}}
+          isConnectable
         ><div className='custom-handle-label'>{input.label}</div></Handle>
       ))}
 

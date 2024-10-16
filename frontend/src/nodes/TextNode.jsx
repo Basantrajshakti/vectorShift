@@ -1,6 +1,6 @@
 // TextNode.js
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { BaseNode } from './BaseNode';
 
 export const TextNode = ({ id, data }) => {
@@ -38,17 +38,15 @@ export const TextNode = ({ id, data }) => {
   };
 
   useEffect(() => {
-    // Adjust textarea height on initial load
     adjustTextareaHeight(currText);
   }, [currText]);
 
-  // Generate the style for each handle, with percentage-based spacing
-  const inputHandles = variables.map((variable, index) => ({
+  const inputHandles = useMemo(() => variables.map((variable, index) => ({
     id: variable,
     position: 'left',
     label: variable,
     style: { top: `${(index + 1) * (100 / (variables.length + 1))}%` }, // Distribute handles evenly
-  }));
+  })), [variables]);
 
   const content = (
     <div>
@@ -72,7 +70,7 @@ export const TextNode = ({ id, data }) => {
 
   return (
     <BaseNode
-      id={id}
+      id={id || 'textNode'}
       label="Text"
       data={data}
       inputs={inputHandles} // Pass dynamic handles with styles
