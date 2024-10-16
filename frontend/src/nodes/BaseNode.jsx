@@ -12,16 +12,16 @@ export const BaseNode = ({ id, label, data, inputs, outputs, content }) => {
   }, [inputs, id, updateNodeInternals]);
 
   return (
-    <div style={{ width: 200, height: 'auto', border: '1px solid black', position: 'relative', padding: 10 }}>
-      <div style={{ marginBottom: 10 }}>
-        <strong>{label}</strong>
+    <div className="w-52 p-2 border border-gray-300 rounded-lg shadow-sm bg-white relative">
+      <div className="mb-2">
+        <h4 className="text-sm font-medium text-gray-700">{label}</h4>
       </div>
 
-      <div>
+      <div className="text-xs text-gray-600">
         {content}
       </div>
 
-      {/* Render input handles on left sid */}
+      {/* Render input handles on the left side */}
       {inputs.map((input, index) => (
         <Handle
           key={`input-${index}`}
@@ -30,10 +30,13 @@ export const BaseNode = ({ id, label, data, inputs, outputs, content }) => {
           id={`${id}-${input.id}`}
           style={input.style || {}}
           isConnectable
-        ><div className='custom-handle-label'>{input.label}</div></Handle>
+          className="custom-handle relative left-0 top-1/2 transform -translate-y-1/2 w-2 h-2 bg-gray-300 hover:bg-blue-500"
+        >
+          <div className="text-xs text-gray-600 hover:text-blue-500 absolute right-2 -top-3">{input.label}</div>
+        </Handle>
       ))}
 
-      {/* Render output handles on right side */}
+      {/* Render output handles on the right side */}
       {outputs.map((output, index) => (
         <Handle
           key={`output-${index}`}
@@ -41,9 +44,13 @@ export const BaseNode = ({ id, label, data, inputs, outputs, content }) => {
           position={output.position || Position.Right}
           id={`${id}-${output.id}`}
           style={output.style || {}}
-        ><div className='custom-handle-label'>{output.label}</div></Handle>
+          className="custom-handle relative right-0 top-1/2 transform -translate-y-1/2 w-2 h-2 bg-gray-300 hover:bg-blue-500"
+        >
+          <div className="text-xs text-gray-600 hover:text-blue-500">{output.label}</div>
+        </Handle>
       ))}
     </div>
+
   );
 };
 

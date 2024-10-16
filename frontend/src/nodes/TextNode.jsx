@@ -50,21 +50,19 @@ export const TextNode = ({ id, data }) => {
 
   const content = (
     <div>
-      <label>
+      <label className="block text-xs font-medium text-gray-700">
         Text:
         <textarea
           value={currText}
           onChange={handleTextChange}
           style={{
-            width: '100%',
             height: `${textareaHeight}px`,
             maxHeight: '100px',
-            overflowY: 'scroll', // Show scrollbar after height exceeds 200px
-            resize: 'none',
           }}
+          className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm text-xs focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 overflow-y-auto resize-none"
         />
       </label>
-      {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
+      {errorMessage && <p className="text-red-500 text-xs mt-1">{errorMessage}</p>}
     </div>
   );
 

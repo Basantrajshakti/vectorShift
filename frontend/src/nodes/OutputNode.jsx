@@ -11,19 +11,30 @@ export const OutputNode = ({ id, data }) => {
   const handleTypeChange = (e) => setOutputType(e.target.value);
 
   const content = (
-    <div>
-      <label>
+    <div className="space-y-4">
+      <label className="block text-xs font-medium text-gray-700">
         Name:
-        <input type="text" value={currName} onChange={handleNameChange} />
+        <input
+          type="text"
+          value={currName}
+          onChange={handleNameChange}
+          className="mt-1 block w-full px-3 py-1 border border-gray-300 rounded-md shadow-sm text-xs focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+        />
       </label>
-      <label>
+
+      <label className="block text-xs font-medium text-gray-700">
         Type:
-        <select value={outputType} onChange={handleTypeChange}>
+        <select
+          value={outputType}
+          onChange={handleTypeChange}
+          className="mt-1 block w-full px-3 py-1 border border-gray-300 rounded-md shadow-sm text-xs focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+        >
           <option value="Text">Text</option>
           <option value="File">Image</option>
         </select>
       </label>
     </div>
+
   );
 
   return (
