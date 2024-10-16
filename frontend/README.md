@@ -1,70 +1,87 @@
-# Getting Started with Create React App
+# React Flow Pipeline Project
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This project is a React application that allows users to create and manage a pipeline using a flow-based interface. It integrates with a FastAPI backend to process the pipeline and provides professional styling using Tailwind CSS.
 
-## Available Scripts
+## Table of Contents
 
-In the project directory, you can run:
+- [Project Structure](#project-structure)
+- [Features](#features)
+- [Technologies Used](#technologies-used)
+- [Installation](#installation)
+- [Usage](#usage)
 
-### `npm start`
+## Project Structure
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+```
+project-root/
+├── backend/
+│ ├── main.py # FastAPI backend entry point
+├── frontend/
+│ ├── src/
+│ └─├── App.jsx # Main application component
+│   ├── index.js # Entry point for React app
+│   ├── index.css
+│   ├── store.jsx
+│   ├── nodes/ # Contains reusable components for nodes
+│   │ ├── BaseNode.jsx
+│   │ ├── CustomNodes.jsx
+│   │ ├── TextNode.jsx
+│   │ ├── InputNode.jsx
+│   │ ├── LLMNode.jsx
+│   │ └── OutputNode.jsx
+│   ├── DraggableNode.jsx
+│   ├── Toolbar.jsx
+│   ├── UI.jsx
+│   └── Submit.jsx # Handles form submission and integration with backend
+├── package.json # Project dependencies and scripts
+├── package-lock.json
+├── tailwind.config.js
+└── README.md # Project documentation
+```
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Features
 
-### `npm test`
+- **Dynamic Node Creation**: Users can create various types of nodes (Text, Input, Output) that can be connected to form a pipeline.
+- **Real-time Handle Generation**: The TextNode generates input handles based on user-defined variables.
+- **Backend Integration**: The frontend communicates with a FastAPI backend to process and validate the created pipelines.
+- **DAG Validation**: The backend checks whether the created pipeline forms a directed acyclic graph (DAG).
+- **Professional Styling**: The application uses Tailwind CSS for a modern and responsive design.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Technologies Used
 
-### `npm run build`
+- **Frontend**: React, ReactFlow and Tailwind CSS
+- **Backend**: FastAPI and pydantic
+- **State Management**: React Hooks and Zustand
+- **Node Handling**: React Flow
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Installation
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+1. Clone the repository:
+   ```bash
+   git clone <repository-url>
+   cd project-root
+   ```
+2. Install the backend dependencies:
+   ```bash
+   cd backend
+   pip install -r requirements.txt
+   ```
+3. Install the frontend dependencies:
+   ```bash
+   cd frontend
+   npm install
+   ```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Usage
 
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+1. Run the Backend: Navigate to the backend directory and run the FastAPI server:
+   ```bash
+   cd backend
+   uvicorn main:app --reload
+   ```
+2. Run the Frontend: Navigate to the frontend directory and start the React app:
+   ```bash
+   cd frontend
+   npm start
+   ```
+3. Open your browser and navigate to http://localhost:3000 to use the application.
